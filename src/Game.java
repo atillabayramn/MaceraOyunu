@@ -15,6 +15,7 @@ public class Game {
 
         Location location = null;
         while(true) {
+            player.printInfo();
             System.out.println();
             System.out.println("#####-BÖLGELER-#####");
             System.out.println("1- Güvenli Ev --> Burası sizin için güvenli bir alan, düşman yoktur!");
@@ -33,7 +34,7 @@ public class Game {
                     location = new SafeHouse(player);
             }
             if (!location.onLocation()) {
-                System.out.println("GMAE OVER !!!");
+                System.out.println("GAME OVER !!!");
                 break;
             }
         }
