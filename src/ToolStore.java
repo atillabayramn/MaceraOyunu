@@ -34,10 +34,48 @@ public class ToolStore extends NormalLoc {
     }
 
     public void printWeapon(){
-        System.out.println("Silahlar");
+        System.out.println("----- Silahlar -----");
+        for(Weapon w : Weapon.weapons()){
+            System.out.println(w.getId() + ") " +
+                    w.getName() + " <Fiyat: " + w.getPrice() +
+                    ", Hasar: " + w.getDamage() + ">");
+        }
+
+        System.out.println("Bir Silah Seçiniz: ");
+
+        int selectWeapon = input.nextInt();
+
+        while(selectWeapon < 1 || selectWeapon > Weapon.weapons().length){
+            System.out.print("Geçersiz değer!! Lütfen tekrar Seçiminizi Yapınız: ");
+            selectWeapon = Location.input.nextInt();
+        }
+
+
+
     }
 
     public void printArmor(){
         System.out.println("Zırhlar");
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
