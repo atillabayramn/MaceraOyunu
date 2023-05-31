@@ -51,27 +51,7 @@ public class Player {
     }
 
 
-    public void selectLoc(){
-        Location location = null;
-        System.out.println();
-        System.out.println("Bölgeler");
-        System.out.println("1- Güvenli Ev");
-        System.out.println("2- Mağaza");
-        System.out.println("Lütfen gitmek istediğiniz bölgeyi seçiniz: ");
-        int selectLoc = input.nextInt();
-        switch (selectLoc){
 
-            case 1:
-                location = new SafeHouse(this);
-                break;
-            case 2:
-                location = new ToolStore(this);
-                break;
-            default:
-                location = new SafeHouse(this);
-        }
-        location.onLocation();
-    }
 
 
 
