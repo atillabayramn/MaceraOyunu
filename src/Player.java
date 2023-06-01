@@ -9,12 +9,14 @@ public class Player {
     private String name;
 
     private Inventory inventory;
+    private Award awards;
 
     private Scanner input = new Scanner(System.in);
 
     public Player(String name){
         this.name = name;
         this.inventory = new Inventory();
+        this.awards = new Award();
     }
 
     public void selectChar(){
@@ -132,5 +134,13 @@ public class Player {
 
     public void setOrjinalHealth(int orjinalHealth) {
         this.orjinalHealth = orjinalHealth;
+    }
+
+    public Award getAwards() {
+        return awards;
+    }
+
+    public void setAwards(Award awards) {
+        this.awards = awards;
     }
 }

@@ -6,6 +6,7 @@ public abstract class BattleLoc extends Location {
     private String award;
     private int maxObstacle;
 
+
     public BattleLoc(Player player, String name, Obstacle obstacle, String award, int maxObstacle) {
         super(player, name);
         this.obstacle = obstacle;
@@ -13,8 +14,16 @@ public abstract class BattleLoc extends Location {
         this.maxObstacle = maxObstacle;
     }
 
+
+
     @Override
     public boolean onLocation() {
+        if(this.getPlayer().getAwards().containAward(this.award)) {
+            System.out.println("Buradaki görevi tamamladınız! Başka bir bölgeyi seçiniz!!");
+            System.out.println();
+            return true;
+        }
+
         int obsNumber = this.randomObstacleNumber();
         System.out.println("Şu an Buradasınız: " + this.getName());
         System.out.println("Dikkatli Ol!! Burada " + obsNumber + " tane " + this.getObstacle().getName() + " Yaşıyor!! -->");
@@ -23,6 +32,8 @@ public abstract class BattleLoc extends Location {
 
         if(selectCase.equals("S") && combat(obsNumber)){
                 System.out.println(this.getName() + " tüm düşmanları yendiniz ");
+                this.getPlayer().getAwards().addAward(this.getAward());
+                this.getPlayer().getAwards().printAward();
                 return true;
         }
 
@@ -129,4 +140,6 @@ public abstract class BattleLoc extends Location {
     public void setAward(String award) {
         this.award = award;
     }
+
+
 }

@@ -54,8 +54,12 @@ public class Game {
                 break;
             }
             if (!location.onLocation()) {
-                System.out.println("GAME OVER !!!");
-                break;
+                if(player.getAwards().sizeAward() == 3){
+                    break;
+                } else {
+                    System.out.println("GAME OVER !!!");
+                    break;
+                }
             }
         }
     }
