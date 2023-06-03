@@ -15,10 +15,9 @@ public abstract class BattleLoc extends Location {
     }
 
 
-
     @Override
     public boolean onLocation() {
-        if(this.getPlayer().getAwards().containAward(this.award)) {
+        if (this.getPlayer().getAwards().containAward(this.award)) {
             System.out.println("Buradaki görevi tamamladınız! Başka bir bölgeyi seçiniz!!");
             System.out.println();
             return true;
@@ -30,51 +29,95 @@ public abstract class BattleLoc extends Location {
         System.out.print(" <S>avaş veya <K>aç");
         String selectCase = input.nextLine().toUpperCase();
 
-        if(selectCase.equals("S") && combat(obsNumber)){
-                System.out.println(this.getName() + " tüm düşmanları yendiniz ");
-                this.getPlayer().getAwards().addAward(this.getAward());
-                this.getPlayer().getAwards().printAward();
-                return true;
+        if (selectCase.equals("S") && combat(obsNumber)) {
+            System.out.println(this.getName() + " tüm düşmanları yendiniz ");
+            this.getPlayer().getAwards().addAward(this.getAward());
+            this.getPlayer().getAwards().printAward();
+            return true;
         }
 
-        if(this.getPlayer().getHealth() <= 0) {
+        if (this.getPlayer().getHealth() <= 0) {
             System.out.println("Öldünüz :( ");
             return false;
         }
         return true;
     }
 
-    public boolean combat(int obsNumber){
+    public boolean combat(int obsNumber) {
 
-        for(int i = 1; i <= obsNumber; i++) {
+        for (int i = 1; i <= obsNumber; i++) {
+
+            int luckyBall;
+            Random random = new Random();
+            luckyBall = random.nextInt(2) + 1;
+
             this.getObstacle().setHealth(this.getObstacle().getOrjinalHealth());
             playerStats();
             obstacleStats(i);
 
-            while(this.getPlayer().getHealth() > 0 && this.getObstacle().getHealth() > 0) {
-                System.out.println("<V>ur veya <K>aç: ");
-                String selectCombat = input.nextLine().toUpperCase();
-                if(selectCombat.equals("V")){
-                    System.out.println("Siz Vurdunuz!");
-                    this.getObstacle().setHealth(this.getObstacle().getHealth() - this.getPlayer().getTotalDamage());
-                    afterHit();
-                    if(this.getObstacle().getHealth() > 0){
+            switch (luckyBall) {
+                case 1:
+                    while (this.getPlayer().getHealth() > 0 && this.getObstacle().getHealth() > 0) {
+                        System.out.println("<V>ur veya <K>aç: ");
+                        String selectCombat = input.nextLine().toUpperCase();
 
-                        System.out.println("Canavar size vurdu!!");
-                        int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().getInventory().getArmor().getBlock();
-                        if(obstacleDamage < 0){
-                            obstacleDamage = 0;
+                        if (selectCombat.equals("V")) {
+                            System.out.println("Siz Vurdunuz!");
+                            this.getObstacle().setHealth(this.getObstacle().getHealth() - this.getPlayer().getTotalDamage());
+
+                            afterHit();
+
+                            if (this.getObstacle().getHealth() > 0) {
+                                System.out.println("Canavar size vurdu!!");
+                                int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().getInventory().getArmor().getBlock();
+
+                                if (obstacleDamage < 0) {
+                                    obstacleDamage = 0;
+                                }
+                                this.getPlayer().setHealth(this.getPlayer().getHealth() - obstacleDamage);
+
+                                afterHit();
+                            }
+                        } else {
+                            return false;
                         }
-                        this.getPlayer().setHealth(this.getPlayer().getHealth() - obstacleDamage);
-                        afterHit();
                     }
-                } else {
-                    return false;
-                }
+                    break;
+                case 2:
+                    System.out.println("Canavar size saldıracak!!! <D>ur veya <K>aç");
+                    String select = input.nextLine().toUpperCase();
 
+                    if (select.equals("D")) {
+                        while (this.getPlayer().getHealth() > 0 && this.getObstacle().getHealth() > 0) {
+                            System.out.println("Canavar size vurdu!!");
+                            int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().getInventory().getArmor().getBlock();
+                            if (obstacleDamage < 0) {
+                                obstacleDamage = 0;
+                            }
+                            this.getPlayer().setHealth(this.getPlayer().getHealth() - obstacleDamage);
+
+                            afterHit();
+                            if (this.getPlayer().getHealth() > 0) {
+                                System.out.println("<V>ur veya <K>aç: ");
+                                String selectCombat = input.nextLine().toUpperCase();
+                                if (selectCombat.equals("V")) {
+                                    System.out.println("Siz Vurdunuz!");
+                                    this.getObstacle().setHealth(this.getObstacle().getHealth() - this.getPlayer().getTotalDamage());
+
+                                    afterHit();
+                                } else {
+                                    return false;
+                                }
+                            }
+                        }
+                    } else {
+                        return false;
+                    }
+                    break;
             }
 
-            if(this.getObstacle().getHealth() < this.getPlayer().getHealth()){
+
+            if (this.getObstacle().getHealth() < this.getPlayer().getHealth()) {
                 System.out.println("Düşmanı Yendiniz !!");
                 System.out.println(this.getObstacle().getAward() + " para kazandınız :) ");
                 this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getObstacle().getAward());
@@ -86,13 +129,13 @@ public abstract class BattleLoc extends Location {
         return true;
     }
 
-    public void afterHit(){
+    public void afterHit() {
         System.out.println("Canınız: " + this.getPlayer().getHealth());
         System.out.println(this.getObstacle().getName() + " Canı: " + this.getObstacle().getHealth());
         System.out.println();
     }
 
-    public void playerStats(){
+    public void playerStats() {
         System.out.println("Oyuncu Değerleri");
         System.out.println("-----------------------------");
         System.out.println("Sağlık: " + this.getPlayer().getHealth());
@@ -104,7 +147,7 @@ public abstract class BattleLoc extends Location {
 
     }
 
-    public void obstacleStats(int i){
+    public void obstacleStats(int i) {
         System.out.println();
         System.out.println(i + ". " + this.getObstacle().getName() + " Değerleri");
         System.out.println("------------------------------");
@@ -113,10 +156,11 @@ public abstract class BattleLoc extends Location {
         System.out.println("Ödül: " + this.getObstacle().getAward());
     }
 
-    public int randomObstacleNumber(){
+    public int randomObstacleNumber() {
         Random r = new Random();
         return r.nextInt(this.getMaxObstacle()) + 1;
     }
+
     public int getMaxObstacle() {
         return maxObstacle;
     }
