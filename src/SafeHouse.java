@@ -10,7 +10,7 @@ public class SafeHouse extends NormalLoc {
         System.out.println("Sağlığınız yenilendi!");
         this.getPlayer().setHealth(this.getPlayer().getOrjinalHealth());
 
-        if(this.getPlayer().getAwards().sizeAward() == 3){
+        if(this.getPlayer().getAwards().isFinishGame()){
             System.out.println("TEBRİKLER!! OYUNU KAZANDINIZ :)");
             return false;
         }

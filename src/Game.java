@@ -54,7 +54,7 @@ public class Game {
                 break;
             }
             if (!location.onLocation()) {
-                if(player.getAwards().sizeAward() == 3){
+                if(player.getAwards().isFinishGame()){
                     break;
                 } else {
                     System.out.println("GAME OVER !!!");
