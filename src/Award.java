@@ -25,7 +25,11 @@ public class Award {
     }
 
     public boolean containAward(String str) {
-        return awardList.contains(str);
+        if(str.equals("Ganimet")){
+            return false;
+        } else {
+            return awardList.contains(str);
+        }
     }
 
     public boolean isFinishGame() {

@@ -119,9 +119,26 @@ public abstract class BattleLoc extends Location {
 
             if (this.getObstacle().getHealth() < this.getPlayer().getHealth()) {
                 System.out.println("Düşmanı Yendiniz !!");
-                System.out.println(this.getObstacle().getAward() + " para kazandınız :) ");
-                this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getObstacle().getAward());
-                System.out.println("Güncel Paranız: " + this.getPlayer().getMoney());
+                if (20 < this.getObstacle().getAward() && this.getObstacle().getAward() <= 23){
+
+
+
+                } else if (23 < this.getObstacle().getAward() && this.getObstacle().getAward() <=26){
+
+
+
+                } else if (26 < this.getObstacle().getAward() && this.getObstacle().getAward() <=29) {
+
+
+
+                } else if (this.getObstacle().getAward() == 30) {
+
+
+                } else {
+                    System.out.println(this.getObstacle().getAward() + " para kazandınız :) ");
+                    this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getObstacle().getAward());
+                    System.out.println("Güncel Paranız: " + this.getPlayer().getMoney());
+                }
             } else {
                 return false;
             }
