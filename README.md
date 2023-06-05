@@ -1,5 +1,7 @@
 ## MaceraOyunu
 ![class-diagram](https://github.com/atillabayramn/MaceraOyunu/assets/129120255/69ee4a0e-059d-43ad-91f2-e32c7c70f5fa)
+
+# Text tabanlı bir oyun tasarımı yaptık. Daha sonra aşağıdaki ödev kısımlarını ekledim. 
 Ödevler
 
 
