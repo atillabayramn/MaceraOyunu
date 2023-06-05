@@ -52,6 +52,9 @@ public abstract class BattleLoc extends Location {
             luckyBall = random.nextInt(2) + 1;
 
             this.getObstacle().setHealth(this.getObstacle().getOrjinalHealth());
+            if (this.getObstacle().getId() == 4) {
+                this.getObstacle().setAward(Snake.randomAward());
+            }
             playerStats();
             obstacleStats(i);
 
@@ -119,21 +122,47 @@ public abstract class BattleLoc extends Location {
 
             if (this.getObstacle().getHealth() < this.getPlayer().getHealth()) {
                 System.out.println("Düşmanı Yendiniz !!");
-                if (20 < this.getObstacle().getAward() && this.getObstacle().getAward() <= 23){
+                if (20 < this.getObstacle().getAward() && this.getObstacle().getAward() <= 23) {
+                    if (this.getObstacle().getAward() == 21) {
+                        System.out.println("Tüfek Kazandınız !");
+                        this.getPlayer().getInventory().setWeapon(Weapon.getWeaponObjByID(3));
+                    } else if (this.getObstacle().getAward() == 22) {
+                        System.out.println("Kılıç Kazandınız !");
+                        this.getPlayer().getInventory().setWeapon(Weapon.getWeaponObjByID(2));
+                    } else if (this.getObstacle().getAward() == 23) {
+                        System.out.println("Tabanca Kazandınız !");
+                        this.getPlayer().getInventory().setWeapon(Weapon.getWeaponObjByID(1));
+                    }
 
+                } else if (23 < this.getObstacle().getAward() && this.getObstacle().getAward() <= 26) {
+                    if (this.getObstacle().getAward() == 24) {
+                        System.out.println("Ağır Zırh Kazandınız !");
+                        this.getPlayer().getInventory().setArmor(Armor.getArmorObjByID(3));
+                    } else if (this.getObstacle().getAward() == 25) {
+                        System.out.println("Orta Zırh Kazandınız !");
+                        this.getPlayer().getInventory().setArmor(Armor.getArmorObjByID(2));
+                    } else if (this.getObstacle().getAward() == 26) {
+                        System.out.println("Hafif Zırh Kazandınız !");
+                        this.getPlayer().getInventory().setArmor(Armor.getArmorObjByID(1));
+                    }
 
-
-                } else if (23 < this.getObstacle().getAward() && this.getObstacle().getAward() <=26){
-
-
-
-                } else if (26 < this.getObstacle().getAward() && this.getObstacle().getAward() <=29) {
-
-
+                } else if (26 < this.getObstacle().getAward() && this.getObstacle().getAward() <= 29) {
+                    if (this.getObstacle().getAward() == 27) {
+                        System.out.println("10 para Kazandınız !");
+                        this.getPlayer().setMoney(this.getPlayer().getMoney() + 10);
+                        System.out.println("Güncel Paranız: " + this.getPlayer().getMoney());
+                    } else if (this.getObstacle().getAward() == 28) {
+                        System.out.println("5 para Kazandınız !");
+                        this.getPlayer().setMoney(this.getPlayer().getMoney() + 5);
+                        System.out.println("Güncel Paranız: " + this.getPlayer().getMoney());
+                    } else if (this.getObstacle().getAward() == 29) {
+                        System.out.println("1 para Kazandınız !");
+                        this.getPlayer().setMoney(this.getPlayer().getMoney() + 1);
+                        System.out.println("Güncel Paranız: " + this.getPlayer().getMoney());
+                    }
 
                 } else if (this.getObstacle().getAward() == 30) {
-
-
+                    System.out.println("Hiçbir Şey Kazanamadınız :( ");
                 } else {
                     System.out.println(this.getObstacle().getAward() + " para kazandınız :) ");
                     this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getObstacle().getAward());
